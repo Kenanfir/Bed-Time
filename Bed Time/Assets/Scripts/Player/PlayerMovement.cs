@@ -13,11 +13,11 @@ public class PlayerMovement : MonoBehaviour
 
     private float dirX = 0f;
     [SerializeField] private float moveSpeed = 7f;
-    [SerializeField] private float jumpForce = 14f;
+    //[SerializeField] private float jumpForce = 14f;
 
     private enum MovementState { idle, running, jumping, falling }
 
-    [SerializeField] private AudioSource jumpSoundEffect;
+    //[SerializeField] private AudioSource jumpSoundEffect;
 
     // Start is called before the first frame update
     private void Start()
@@ -34,13 +34,13 @@ public class PlayerMovement : MonoBehaviour
         dirX = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y);
 
-        if (Input.GetButtonDown("Jump") && IsGrounded())
+        /*if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             jumpSoundEffect.Play();
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-        }
+        }*/
 
-        UpdateAnimationState();
+        //UpdateAnimationState();
     }
 
     private void UpdateAnimationState()
@@ -74,8 +74,8 @@ public class PlayerMovement : MonoBehaviour
         anim.SetInteger("state", (int)state);
     }
 
-    private bool IsGrounded()
+    /*private bool IsGrounded()
     {
         return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
-    }
+    }*/
 }
