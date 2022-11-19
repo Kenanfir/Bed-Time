@@ -889,11 +889,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 
+  cloudProjectId: 1a6294b9-8a74-4cc1-8f8c-1383b322c8f5
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: Bed Time
+  organizationId: kenanf
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 
