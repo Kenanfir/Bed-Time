@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Player_Interact : MonoBehaviour
 {
+    public AudioSource[] soundFX;
     private GameObject Door;
+    private Game_Manager gameManager;
     private Transform goToLoc;
     private Collider2D playerColl;
     [SerializeField] private ContactFilter2D intractableFil;
@@ -15,6 +17,7 @@ public class Player_Interact : MonoBehaviour
     void Start()
     {
         playerColl = GetComponent<Collider2D>();
+        gameManager = gameObject.GetComponent<Game_Manager>();
     }
 
     void Update()
@@ -71,38 +74,46 @@ public class Player_Interact : MonoBehaviour
 
     void OnInteractDoor1()
     {
+        gameManager.FadeIn();
         Door = GameObject.Find("Door2");
         goToLoc = Door.GetComponent<Transform>();
         gameObject.transform.position = goToLoc.position;
         Debug.Log("Interacted Door1");
         isInteract = false;
+        gameManager.FadeOut();
     }
 
     void OnInteractDoor2()
     {
+        gameManager.FadeIn();
         Door = GameObject.Find("Door3");
         goToLoc = Door.GetComponent<Transform>();
         gameObject.transform.position = goToLoc.position;
         Debug.Log("Interacted Door2");
         isInteract = false;
+        gameManager.FadeOut();
     }
 
     void OnInteractDoor3()
     {
+        gameManager.FadeIn();
         Door = GameObject.Find("Door4");
         goToLoc = Door.GetComponent<Transform>();
         gameObject.transform.position = goToLoc.position;
         Debug.Log("Interacted Door3");
         isInteract = false;
+        gameManager.FadeOut();
     }
 
     void OnInteractDoor4()
     {
+        gameManager.FadeIn();
         Door = GameObject.Find("Door1");
         goToLoc = Door.GetComponent<Transform>();
         gameObject.transform.position = goToLoc.position;
         Debug.Log("Interacted Door4");
         isInteract = false;
+        gameManager.FadeOut();
     }
 
     void OnInteractBed()
