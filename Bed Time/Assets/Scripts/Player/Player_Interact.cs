@@ -10,11 +10,18 @@ public class Player_Interact : MonoBehaviour
     private GameObject Door;
     private Transform goToLoc;
     private Collider2D playerColl;
-       
+
     [SerializeField] private ContactFilter2D intractableFil;
     [SerializeField] private List<Collider2D> interactableObj;
+
     public bool isInteract = false;
     public bool isHiding = false;
+    public bool isSwitchOn = false;
+    public bool isShadowOn = false;
+    public bool isFootstepsOn = false;
+    public bool isScratchesOn = false;
+    public bool isRadioOn = false;
+    public bool isBlackout = false;
 
     void Start()
     {
@@ -149,30 +156,20 @@ public class Player_Interact : MonoBehaviour
 
     void OnInteractRadio()
     {
-        if (!isHiding)
+        if (isRadioOn)
         {
-            Debug.Log("Hide");
-            isHiding = true;
-        }
-        else
-        {
-            Debug.Log("Get out");
-            isHiding = false;
+            Debug.Log("Turn Off Radio");
+            isRadioOn = false;
         }
         isInteract = false;
     }
 
     void OnInteractSwitch()
     {
-        if (!isHiding)
+        if (!isSwitchOn && isBlackout)
         {
-            Debug.Log("Hide");
-            isHiding = true;
-        }
-        else
-        {
-            Debug.Log("Get out");
-            isHiding = false;
+            Debug.Log("Lights Back On");
+            isSwitchOn = true;
         }
         isInteract = false;
     }
