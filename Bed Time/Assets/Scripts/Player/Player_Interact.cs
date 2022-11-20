@@ -12,6 +12,7 @@ public class Player_Interact : MonoBehaviour
     private GameObject Door;
     private Transform goToLoc;
     private Collider2D playerColl;
+    private Animator anim;
 
     [SerializeField] private ContactFilter2D intractableFil;
     [SerializeField] private List<Collider2D> interactableObj;
@@ -30,6 +31,7 @@ public class Player_Interact : MonoBehaviour
     {
         playerColl = GetComponent<Collider2D>();
         sound = GetComponent<AudioSource>();
+        anim = GetComponent<Animator>();
     }
     void Update()
     {
@@ -45,6 +47,7 @@ public class Player_Interact : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && !isInteract)
         {
+            anim.SetTrigger("interact");
             switch (gameObj.name)
             {
                 case ("Door1"):
@@ -90,8 +93,8 @@ public class Player_Interact : MonoBehaviour
         }
     }
 
-    void OnInteractDoor1()
-    {           
+    void OnInteractDoor1()    {
+        
         Door = GameObject.Find("Door2");
         gameManager.SwitchDoor();
         sound.clip = soundFX[0];
@@ -103,7 +106,8 @@ public class Player_Interact : MonoBehaviour
     }
 
     void OnInteractDoor2()
-    {            
+    {
+        
         Door = GameObject.Find("Door1");
         gameManager.SwitchDoor();
         sound.clip = soundFX[0];

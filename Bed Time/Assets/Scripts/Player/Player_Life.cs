@@ -30,7 +30,7 @@ public class Player_Life : MonoBehaviour
     {
         //deathSoundEffect.Play();
         rb.bodyType = RigidbodyType2D.Static;
-        //anim.SetTrigger("death");
+        anim.SetTrigger("death");
         isDead = true;
     }
 
