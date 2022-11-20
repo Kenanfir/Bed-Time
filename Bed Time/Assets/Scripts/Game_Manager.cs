@@ -6,13 +6,15 @@ using UnityEngine.SceneManagement;
 
 public class Game_Manager : MonoBehaviour
 {
+    public SpriteRenderer player;
+    public SpriteRenderer space;
     public Sequence_Controller startSequence;
     public Player_Movement startMovement;
     public Player_Interact startInteract;
     public Player_Life playerLife;
     //public CanvasGroup imageFade;
     public Image img;
-    
+
     public Rigidbody2D playerRb;
     private bool isGameStart;
 
@@ -29,6 +31,7 @@ public class Game_Manager : MonoBehaviour
         startSequence.enabled = false;
         startMovement.enabled = false;
         startInteract.enabled = false;
+        player.enabled = false;
     }
 
     // Start is called before the first frame update
@@ -44,9 +47,11 @@ public class Game_Manager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && !isGameStart)
         {    
             isGameStart = true;
+            player.enabled = true;
             startSequence.enabled = true;
             startMovement.enabled = true;
             startInteract.enabled = true;
+            space.enabled = false;
         }
 
         if (playerLife.isDead)

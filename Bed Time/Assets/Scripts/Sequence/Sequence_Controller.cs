@@ -5,10 +5,12 @@ using UnityEngine;
 public class Sequence_Controller : MonoBehaviour
 {
     [SerializeField] private string[] sequenceType = new string[] { "Blackout", "Footsteps", "Shadow", "Scratches", "Radio" };
-    [SerializeField] private AudioSource[] soundFX;
+    [SerializeField] private AudioClip[] soundFX;
     [SerializeField] private GameObject imageBlackout;
+    [SerializeField] private GameObject imageShadow;
 
     public GameObject player;
+    public AudioSource sound;
 
     private string randSequence;
     private float timeRemain, timeSequence;
@@ -33,7 +35,7 @@ public class Sequence_Controller : MonoBehaviour
         if (timeRemain > 0)
         {    
             timeRemain -= Time.deltaTime;
-            if (!isSequenceStart)
+            if (!isSequenceStart && timeRemain % 60 == 0)
             {
                 isSequenceStart = true;
                 SequenceStart(randSequence);
@@ -43,7 +45,8 @@ public class Sequence_Controller : MonoBehaviour
                 timeSequence += Time.deltaTime;
                 if (timeSequence >= 40 && timeSequence <= 60)
                 {
-                    soundFX[0].Play();
+                    sound.clip = soundFX[0];
+                    sound.Play();
                 }
                 else if (timeSequence >= 60)
                 {
@@ -105,7 +108,7 @@ public class Sequence_Controller : MonoBehaviour
     {
         isSequenceStart = false;
         timeSequence = 0;
-        soundFX[0].Stop();
+        sound.Stop();
     }
 
     void NewSequence()
@@ -117,9 +120,10 @@ public class Sequence_Controller : MonoBehaviour
     {
         if (interact.isBlackout == false)
         {
+            sound.clip = soundFX[1];
+            sound.Play();
             imageBlackout.SetActive(true);
             interact.isBlackout = true;
-            //play sfx
         }
     }
 
@@ -138,8 +142,9 @@ public class Sequence_Controller : MonoBehaviour
     {
         if (interact.isFootstepsOn == false)
         {
+            sound.clip = soundFX[2];
+            sound.Play();
             interact.isFootstepsOn = true;
-            //play sfx
         }
     }
 
@@ -156,8 +161,10 @@ public class Sequence_Controller : MonoBehaviour
     {
         if (interact.isShadowOn == false)
         {
+            sound.clip = soundFX[3];
+            sound.Play();
+            imageShadow.SetActive(true);
             interact.isShadowOn = true;
-            //play sfx
         }
     }
 
@@ -166,6 +173,7 @@ public class Sequence_Controller : MonoBehaviour
         if (timeSequence < 60 && interact.isHiding == true)
         {
             interact.isShadowOn = false;
+            imageShadow.SetActive(false);
             StopSequence();
         }
     }
@@ -174,8 +182,9 @@ public class Sequence_Controller : MonoBehaviour
     {
         if (interact.isScratchesOn == false)
         {
+            sound.clip = soundFX[4];
+            sound.Play();
             interact.isScratchesOn = true;
-            //play sfx
         }
     }
 
@@ -192,8 +201,9 @@ public class Sequence_Controller : MonoBehaviour
     {
         if (interact.isRadioOn == false)
         {
+            sound.clip = soundFX[5];
+            sound.Play();
             interact.isRadioOn = true;
-            //play sfx
         }
     }
 

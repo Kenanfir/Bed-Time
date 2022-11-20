@@ -8,6 +8,8 @@ public class Player_Interact : MonoBehaviour
     public Game_Manager gameManager;
     public Player_Movement startMovement;
     public AudioSource sound;
+    public SpriteRenderer player;
+    public GameObject E;
 
     private GameObject Door;
     private Transform goToLoc;
@@ -45,8 +47,10 @@ public class Player_Interact : MonoBehaviour
 
     void OnCollided(GameObject gameObj)
     {
+        E.SetActive(true);
         if (Input.GetKeyDown(KeyCode.E) && !isInteract)
         {
+            E.SetActive(false);
             anim.SetTrigger("interact");
             switch (gameObj.name)
             {
@@ -124,7 +128,7 @@ public class Player_Interact : MonoBehaviour
         gameManager.SwitchDoor();
         sound.clip = soundFX[0];
         sound.Play();
-        goToLoc = Door.GetComponent<Transform>();
+        goToLoc = Door.transform.GetChild(0).transform;
         gameObject.transform.position = goToLoc.position;
         Debug.Log("Interacted Door3");
         isInteract = false;     
@@ -136,7 +140,7 @@ public class Player_Interact : MonoBehaviour
         gameManager.SwitchDoor();
         sound.clip = soundFX[0];
         sound.Play();
-        goToLoc = Door.GetComponent<Transform>();
+        goToLoc = Door.transform.GetChild(0).transform;
         gameObject.transform.position = goToLoc.position;
         Debug.Log("Interacted Door4");
         isInteract = false;        
@@ -147,12 +151,19 @@ public class Player_Interact : MonoBehaviour
         if (!isHiding)
         {
             Debug.Log("Hide");
+
+            sound.clip = soundFX[2];
+            sound.Play();
+            player.enabled = false;
             startMovement.enabled = false;
             isHiding = true;
         }
         else
         {
             Debug.Log("Get out");
+            sound.clip = soundFX[2];
+            sound.Play();
+            player.enabled = true;
             startMovement.enabled = true;
             isHiding = false;
         }
@@ -166,6 +177,7 @@ public class Player_Interact : MonoBehaviour
             Debug.Log("Hide");
             sound.clip = soundFX[1];
             sound.Play();
+            player.enabled = false;
             startMovement.enabled = false;
             isHiding = true;
         }
@@ -174,6 +186,7 @@ public class Player_Interact : MonoBehaviour
             Debug.Log("Get out");
             sound.clip = soundFX[0];
             sound.Play();
+            player.enabled = true;
             startMovement.enabled = true;
             isHiding = false;
         }
