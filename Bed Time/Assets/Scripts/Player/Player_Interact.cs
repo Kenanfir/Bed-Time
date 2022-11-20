@@ -5,9 +5,9 @@ using UnityEngine;
 public class Player_Interact : MonoBehaviour
 {
     public AudioSource[] soundFX;
+    public Game_Manager gameManager;
 
     private GameObject Door;
-    public Game_Manager gameManager;
     private Transform goToLoc;
     private Collider2D playerColl;
 
