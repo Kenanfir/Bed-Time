@@ -23,8 +23,7 @@ public class Sequence_Controller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timeRemain = 355;
-        timeSequence = 0;
+
     }
 
     // Update is called once per frame

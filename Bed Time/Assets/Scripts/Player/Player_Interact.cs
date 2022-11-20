@@ -7,7 +7,7 @@ public class Player_Interact : MonoBehaviour
     public AudioSource[] soundFX;
 
     private GameObject Door;
-    private Game_Manager gameManager;
+    public Game_Manager gameManager;
     private Transform goToLoc;
     private Collider2D playerColl;
 
