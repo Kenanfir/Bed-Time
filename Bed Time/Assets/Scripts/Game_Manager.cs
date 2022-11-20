@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class Game_Manager : MonoBehaviour
 {
     public Sequence_Controller startSequence;
+    public Player_Movement startMovement;
+    public Player_Interact startInteract;
     //public CanvasGroup imageFade;
     public Image img;
     
@@ -25,7 +27,9 @@ public class Game_Manager : MonoBehaviour
     private void Awake()
     {
         Game_Manager instance = this;
-        startSequence.enabled = false;        
+        startSequence.enabled = false;
+        startMovement.enabled = false;
+        startInteract.enabled = false;
     }
 
     // Start is called before the first frame update
@@ -44,6 +48,8 @@ public class Game_Manager : MonoBehaviour
             isGameStart = true;
             Debug.Log(isGameStart);
             startSequence.enabled = true;
+            startMovement.enabled = true;
+            startInteract.enabled = true;
         }
 
         if (playerLife.isDead)
