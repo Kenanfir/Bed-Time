@@ -31,17 +31,17 @@ public class Sequence_Controller : MonoBehaviour
     void Update()
     {
         if (timeRemain > 0)
-        {
-            randSequence = sequenceType[Random.Range(0, sequenceType.Length)];
+        {    
             timeRemain -= Time.deltaTime;
             if (!isSequenceStart)
             {
+                isSequenceStart = true;
                 SequenceStart(randSequence);
             }
             else if (isSequenceStart)
             {
                 timeSequence += Time.deltaTime;
-                if (timeSequence >= 40)
+                if (timeSequence >= 40 && timeSequence <= 60)
                 {
                     soundFX[0].Play();
                 }
@@ -54,20 +54,20 @@ public class Sequence_Controller : MonoBehaviour
                     switch (randSequence)
                     {
                         case ("Blackout"):
-                            BlackoutSequence();
+                            BlackoutSequenceCheck();
                             break;
                         case ("Footsteps"):
-                            FootstepsSequence();
+                            FootstepsSequenceCheck();
                             break;
                         case ("Shadow"):
-                            ShadowSequence();
+                            ShadowSequenceCheck();
                             break;
                         case ("Scratches"):
-                            ScratchesSequence();
+                            ScratchesSequenceCheck();
                             break;
-                        /*case ("Radio"):
-                            RadioSequence();
-                            break;*/
+                        case ("Radio"):
+                            RadioSequenceCheck();
+                            break;
                     }
                 }
             }
@@ -80,23 +80,24 @@ public class Sequence_Controller : MonoBehaviour
 
     void SequenceStart(string random)
     {
-        switch (random)
+        randSequence = sequenceType[Random.Range(0, sequenceType.Length)];
+        switch (randSequence)
         {
             case ("Blackout"):
-                BlackoutSequence();
+                BlackoutSequenceOn();
                 break;
             case ("Footsteps"):
-                FootstepsSequence();
+                FootstepsSequenceOn();
                 break;
             case ("Shadow"):
-                ShadowSequence();
+                ShadowSequenceOn();
                 break;
             case ("Scratches"):
-                ScratchesSequence();
+                ScratchesSequenceOn();
                 break;
-            /*case ("Radio"):
-                RadioSequence();
-                break;*/
+            case ("Radio"):
+                RadioSequenceOn();
+                break;
         }
     }
 
@@ -112,7 +113,7 @@ public class Sequence_Controller : MonoBehaviour
 
     }
 
-    void BlackoutSequence()
+    void BlackoutSequenceOn()
     {
         if (interact.isBlackout == false)
         {
@@ -120,7 +121,11 @@ public class Sequence_Controller : MonoBehaviour
             interact.isBlackout = true;
             //play sfx
         }
-        else if (timeSequence < 60 && interact.isSwitchOn == true)
+    }
+
+    void BlackoutSequenceCheck()
+    {
+        if (timeSequence < 60 && interact.isSwitchOn == true && interact.isBlackout == true)
         {
             interact.isBlackout = false;
             interact.isSwitchOn = false;
@@ -129,56 +134,72 @@ public class Sequence_Controller : MonoBehaviour
         }
     }
 
-    void FootstepsSequence()
+    void FootstepsSequenceOn()
     {
         if (interact.isFootstepsOn == false)
         {
-            interact.isRadioOn = true;
+            interact.isFootstepsOn = true;
             //play sfx
         }
-        else if (timeSequence < 60 && interact.isHiding == true)
+    }
+
+    void FootstepsSequenceCheck()
+    {
+        if (timeSequence < 60 && interact.isHiding == true)
         {
             interact.isFootstepsOn = false;
             StopSequence();
         }
     }
 
-    void ShadowSequence()
+    void ShadowSequenceOn()
     {
         if (interact.isShadowOn == false)
         {
-            interact.isRadioOn = true;
+            interact.isShadowOn = true;
             //play sfx
         }
-        else if (timeSequence < 60 && interact.isHiding == true)
+    }
+
+    void ShadowSequenceCheck()
+    {
+        if (timeSequence < 60 && interact.isHiding == true)
         {
             interact.isShadowOn = false;
             StopSequence();
         }
     }
 
-    void ScratchesSequence()
+    void ScratchesSequenceOn()
     {
         if (interact.isScratchesOn == false)
         {
-            interact.isRadioOn = true;
+            interact.isScratchesOn = true;
             //play sfx
         }
-        else if (timeSequence < 60 && interact.isHiding == true)
+    }
+
+    void ScratchesSequenceCheck()
+    {
+        if (timeSequence < 60 && interact.isHiding == true)
         {
             interact.isScratchesOn = false;
             StopSequence();
         }
     }
 
-    void RadioSequence()
+    void RadioSequenceOn()
     {
         if (interact.isRadioOn == false)
         {
             interact.isRadioOn = true;
             //play sfx
         }
-        else if (timeSequence < 60 && interact.isRadioSwitch == true)
+    }
+
+    void RadioSequenceCheck()
+    {
+        if (timeSequence < 60 && interact.isRadioSwitch == true)
         {
             interact.isRadioOn = false;
             StopSequence();
