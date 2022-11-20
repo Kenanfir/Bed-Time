@@ -45,7 +45,7 @@ public class Sequence_Controller : MonoBehaviour
                 }
                 else if (timeSequence >= 90)
                 {
-                    //mati
+                    player.GetComponent<Player_Life>().Die();
                 }
                 if (timeSequence < 90 && interact.isHiding == true)
                 {
