@@ -5,8 +5,8 @@ using UnityEngine;
 public class Sequence_Controller : MonoBehaviour
 {
     [SerializeField] private string[] sequenceType = new string[] { "Blackout", "Footsteps", "Shadow", "Scratches", "Radio" };
-    [SerializeField] private AudioSource heartBeat;
-    [SerializeField] private GameObject image;
+    [SerializeField] private AudioSource[] soundFX;
+    [SerializeField] private GameObject imageBlackout;
 
     public GameObject player;
 
@@ -23,7 +23,7 @@ public class Sequence_Controller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {        
-        timeRemain = 300;        
+
     }
 
     // Update is called once per frame
@@ -32,7 +32,7 @@ public class Sequence_Controller : MonoBehaviour
         if (timeRemain > 0)
         {
             timeRemain -= Time.deltaTime;
-            if (!isSequenceStart || timeRemain % 60 == 0)
+            if (!isSequenceStart)
             {
                 SequenceStart();
             }
@@ -41,17 +41,38 @@ public class Sequence_Controller : MonoBehaviour
                 timeSequence += Time.deltaTime;
                 if (timeSequence >= 70)
                 {
-                    heartBeat.Play();
+                    soundFX[0].Play();
                 }
                 else if (timeSequence >= 90)
                 {
                     player.GetComponent<Player_Life>().Die();
                 }
-                if (timeSequence < 90 && interact.isHiding == true)
+                if (timeSequence < 90)
                 {
-                    StopSequence();
+                    switch (randSequence)
+                    {
+                        case ("Blackout"):
+                            BlackoutSequence();
+                            break;
+                        case ("Footsteps"):
+                            FootstepsSequence();
+                            break;
+                        case ("Shadow"):
+                            ShadowSequence();
+                            break;
+                        case ("Scratches"):
+                            ScratchesSequence();
+                            break;
+                        case ("Radio"):
+                            RadioSequence();
+                            break;
+                    }
                 }
             }
+        }
+        else if (timeRemain <= 0)
+        {
+            
         }
     }
 
@@ -82,8 +103,15 @@ public class Sequence_Controller : MonoBehaviour
     void StopSequence()
     {
         isSequenceStart = false;
+        interact.isSwitchOn = false;
+        interact.isBlackout = false;
+        interact.isRadioOn = false;
+        interact.isScratchesOn = false;
+        interact.isFootstepsOn = false;
+        interact.isShadowOn = false;
         timeSequence = 0;
-        heartBeat.Stop();
+        soundFX[0].Stop();
+        imageBlackout.SetActive(false);
     }
 
     void NewSequence()
@@ -93,8 +121,13 @@ public class Sequence_Controller : MonoBehaviour
 
     void BlackoutSequence()
     {
-        image.SetActive(true);
-        if (timeSequence < 90 && interact.isHiding == true)
+        if (interact.isBlackout == false)
+        {
+            imageBlackout.SetActive(true);
+            interact.isBlackout = true;
+            //play sfx
+        }
+        else if (timeSequence < 90 && interact.isSwitchOn == true)
         {
             StopSequence();
         }
@@ -102,21 +135,53 @@ public class Sequence_Controller : MonoBehaviour
 
     void FootstepsSequence()
     {
-
+        if (interact.isFootstepsOn == false)
+        {
+            interact.isRadioOn = true;
+            //play sfx
+        }
+        else if (timeSequence < 90 && interact.isHiding == true)
+        {
+            StopSequence();
+        }
     }
 
     void ShadowSequence()
     {
-
+        if (interact.isShadowOn == false)
+        {
+            interact.isRadioOn = true;
+            //play sfx
+        }
+        else if (timeSequence < 90 && interact.isHiding == true)
+        {
+            StopSequence();
+        }
     }
 
     void ScratchesSequence()
     {
-
+        if (interact.isScratchesOn == false)
+        {
+            interact.isRadioOn = true;
+            //play sfx
+        }
+        else if (timeSequence < 90 && interact.isHiding == true)
+        {
+            StopSequence();
+        }
     }
 
     void RadioSequence()
     {
-
+        if (interact.isRadioOn == false)
+        {
+            interact.isRadioOn = true;
+            //play sfx
+        }
+        else if (timeSequence < 90 && interact.isRadioOn == false)
+        {
+            StopSequence();
+        }
     }
 }
