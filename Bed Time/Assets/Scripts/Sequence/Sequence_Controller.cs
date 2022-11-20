@@ -22,8 +22,8 @@ public class Sequence_Controller : MonoBehaviour
     }
     // Start is called before the first frame update
     void Start()
-    {
-        timeRemain = 300;
+    {        
+
     }
 
     // Update is called once per frame
@@ -45,7 +45,7 @@ public class Sequence_Controller : MonoBehaviour
                 }
                 else if (timeSequence >= 90)
                 {
-                    //mati
+                    player.GetComponent<Player_Life>().Die();
                 }
                 if (timeSequence < 90)
                 {

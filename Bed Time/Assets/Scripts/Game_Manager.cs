@@ -2,28 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Game_Manager : MonoBehaviour
 {
     public Sequence_Controller startSequence;
-    public CanvasGroup imageFade;
-
+    //public CanvasGroup imageFade;
+    public Image img;
+    
+    public Rigidbody2D playerRb;
     private bool isGameStart;
+    private Player_Life playerLife;
+
+
+    public void SwitchDoor()
+    {        
+        // fades the image out when you click
+        StartCoroutine(FadeImage(true));
+        StartCoroutine(PlayerBodyType());
+    }
 
     private void Awake()
     {
-        //fungsinya buat apa nan?
-        //startSequence = GetComponent<Sequence_Controller>();
-        
-        //fungsinya buat apa nan?(2)
-        startSequence.enabled = false;
+        Game_Manager instance = this;
+        startSequence.enabled = false;        
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        isGameStart = false;
-        
+        isGameStart = false;       
         
     }
 
@@ -31,25 +39,56 @@ public class Game_Manager : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && !isGameStart)
-        {
+        {    
+            Debug.Log(isGameStart);
             isGameStart = true;
+            Debug.Log(isGameStart);
             startSequence.enabled = true;
         }
-    }
 
-    public void FadeIn()
-    {
-        while (imageFade.alpha >= 1)
+        if (playerLife.isDead)
         {
-            imageFade.alpha -= Time.deltaTime;
+            StartCoroutine(FadeImage(true));
+            SceneManager.LoadScene("Transition");
         }
     }
 
-    public void FadeOut()
+
+    IEnumerator FadeImage(bool fadeAway)
     {
-        while (imageFade.alpha == 0)
+        // fade from opaque to transparent
+        if (fadeAway)
         {
-            imageFade.alpha += Time.deltaTime;
+            // loop over 1 second backwards
+            for (float i = 1; i >= 0; i -= Time.deltaTime)
+            {
+                // set color with i as alpha
+                img.color = new Color(1, 1, 1, i);
+                yield return new WaitForSeconds(0.013f);
+            }
         }
+        // fade from transparent to opaque
+        else
+        {
+            playerRb.bodyType = RigidbodyType2D.Dynamic;
+            // loop over 1 second
+            for (float i = 0; i <= 1; i += Time.deltaTime*0.5f)
+            {
+                // set color with i as alpha
+                img.color = new Color(1, 1, 1, i);
+                
+                yield return null;
+            }
+            
+        }
+    }
+
+    IEnumerator PlayerBodyType()
+    {
+        playerRb.bodyType = RigidbodyType2D.Static;
+        yield return new WaitForSeconds(1f);
+        playerRb.bodyType = RigidbodyType2D.Dynamic;
     }
 }
+
+
