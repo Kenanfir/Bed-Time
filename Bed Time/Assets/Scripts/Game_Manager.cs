@@ -2,23 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Game_Manager : MonoBehaviour
 {
     public Sequence_Controller startSequence;
     //public CanvasGroup imageFade;
     public Image img;
-
-    private bool isGameStart;
-    public Rigidbody2D playerRb;
     
+    public Rigidbody2D playerRb;
+    private bool isGameStart;
+    private Player_Life playerLife;
+
 
     public void SwitchDoor()
     {        
         // fades the image out when you click
         StartCoroutine(FadeImage(true));
         StartCoroutine(PlayerBodyType());
-
     }
 
     private void Awake()
@@ -43,6 +44,12 @@ public class Game_Manager : MonoBehaviour
             isGameStart = true;
             Debug.Log(isGameStart);
             startSequence.enabled = true;
+        }
+
+        if (playerLife.isDead)
+        {
+            StartCoroutine(FadeImage(true));
+            SceneManager.LoadScene("Transition");
         }
     }
 
