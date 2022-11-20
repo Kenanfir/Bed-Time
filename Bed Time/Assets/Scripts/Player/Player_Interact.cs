@@ -76,7 +76,7 @@ public class Player_Interact : MonoBehaviour
     {
         //gameManager.FadeOut();
         Door = GameObject.Find("Door2");
-        goToLoc = Door.GetComponent<Transform>();
+        goToLoc = Door.transform.GetChild(0).transform;                
         gameObject.transform.position = goToLoc.position;
         Debug.Log("Interacted Door1");
         isInteract = false;
@@ -87,7 +87,7 @@ public class Player_Interact : MonoBehaviour
     {
         //gameManager.FadeOut();
         Door = GameObject.Find("Door1");
-        goToLoc = Door.GetComponent<Transform>();
+        goToLoc = Door.transform.GetChild(0).transform;
         gameObject.transform.position = goToLoc.position;
         Debug.Log("Interacted Door2");
         isInteract = false;

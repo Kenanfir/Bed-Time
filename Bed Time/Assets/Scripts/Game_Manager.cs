@@ -7,14 +7,24 @@ public class Game_Manager : MonoBehaviour
 {
     public Sequence_Controller startSequence;
     public CanvasGroup imageFade;
+
     private bool isGameStart;
+
+    private void Awake()
+    {
+        //fungsinya buat apa nan?
+        //startSequence = GetComponent<Sequence_Controller>();
+        
+        //fungsinya buat apa nan?(2)
+        startSequence.enabled = false;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         isGameStart = false;
-        startSequence = GetComponent<Sequence_Controller>();
-        startSequence.enabled = false;
+        
+        
     }
 
     // Update is called once per frame

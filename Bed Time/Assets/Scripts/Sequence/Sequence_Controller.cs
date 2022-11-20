@@ -7,17 +7,23 @@ public class Sequence_Controller : MonoBehaviour
     [SerializeField] private string[] sequenceType = new string[] { "Blackout", "Footsteps", "Shadow", "Scratches", "Radio" };
     [SerializeField] private AudioSource heartBeat;
     [SerializeField] private GameObject image;
+
+    public GameObject player;
+
     private string randSequence;
     private float timeRemain, timeSequence;
     private bool isSequenceStart;
     private Player_Interact interact;
-    public GameObject player;
+    
 
+    private void Awake()
+    {
+        interact = player.GetComponent<Player_Interact>();
+    }
     // Start is called before the first frame update
     void Start()
     {
-        timeRemain = 300;
-        interact = player.GetComponent<Player_Interact>();
+        timeRemain = 300;        
     }
 
     // Update is called once per frame
