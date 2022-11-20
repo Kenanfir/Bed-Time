@@ -9,12 +9,13 @@ public class Game_Manager : MonoBehaviour
     public Sequence_Controller startSequence;
     public Player_Movement startMovement;
     public Player_Interact startInteract;
+    public Player_Life playerLife;
     //public CanvasGroup imageFade;
     public Image img;
     
     public Rigidbody2D playerRb;
     private bool isGameStart;
-    private Player_Life playerLife;
+   
 
 
     public void SwitchDoor()

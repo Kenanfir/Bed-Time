@@ -49,6 +49,7 @@ public class Player_Movement : MonoBehaviour
 
         if (dirX > 0f)
         {
+            
             state = MovementState.walking;
             sprite.flipX = false;
         }
@@ -61,7 +62,7 @@ public class Player_Movement : MonoBehaviour
         {
             state = MovementState.idle;
         }
-       
+
         //if (rb.velocity.y > .1f)
         //{
         //    state = MovementState.jumping;
@@ -70,7 +71,7 @@ public class Player_Movement : MonoBehaviour
         //{
         //    state = MovementState.falling;
         //}
-
+        Debug.Log("state : " + state);
         anim.SetInteger("state", (int)state);
     }
 
