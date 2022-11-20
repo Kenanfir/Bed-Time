@@ -5,10 +5,12 @@ using UnityEngine;
 public class Player_Interact : MonoBehaviour
 {
     public AudioSource[] soundFX;
+    public Game_Manager gameManager;
+
     private GameObject Door;
-    private Game_Manager gameManager;
     private Transform goToLoc;
     private Collider2D playerColl;
+       
     [SerializeField] private ContactFilter2D intractableFil;
     [SerializeField] private List<Collider2D> interactableObj;
     public bool isInteract = false;
@@ -17,14 +19,13 @@ public class Player_Interact : MonoBehaviour
     void Start()
     {
         playerColl = GetComponent<Collider2D>();
-        gameManager = gameObject.GetComponent<Game_Manager>();
+            
     }
-
     void Update()
     {
         playerColl.OverlapCollider(intractableFil, interactableObj);
 
-        foreach(var obj in interactableObj)
+        foreach (var obj in interactableObj)
         {
             OnCollided(obj.gameObject);
         }
@@ -74,46 +75,46 @@ public class Player_Interact : MonoBehaviour
 
     void OnInteractDoor1()
     {
-        //gameManager.FadeOut();
+            
         Door = GameObject.Find("Door2");
-        goToLoc = Door.transform.GetChild(0).transform;                
+        gameManager.SwitchDoor();
+        goToLoc = Door.transform.GetChild(0).transform;
         gameObject.transform.position = goToLoc.position;
         Debug.Log("Interacted Door1");
         isInteract = false;
-        //gameManager.FadeIn();
+            
     }
 
     void OnInteractDoor2()
-    {
-        //gameManager.FadeOut();
+    {            
         Door = GameObject.Find("Door1");
+        gameManager.SwitchDoor();
         goToLoc = Door.transform.GetChild(0).transform;
         gameObject.transform.position = goToLoc.position;
         Debug.Log("Interacted Door2");
-        isInteract = false;
-        //gameManager.FadeIn();
+        isInteract = false;            
     }
 
     void OnInteractDoor3()
     {
-        //gameManager.FadeOut();
+            
         Door = GameObject.Find("Door4");
+        gameManager.SwitchDoor();
         goToLoc = Door.GetComponent<Transform>();
         gameObject.transform.position = goToLoc.position;
         Debug.Log("Interacted Door3");
         isInteract = false;
-        //gameManager.FadeIn();
+            
     }
 
     void OnInteractDoor4()
-    {
-        //gameManager.FadeOut();
+    {        
         Door = GameObject.Find("Door3");
+        gameManager.SwitchDoor();
         goToLoc = Door.GetComponent<Transform>();
         gameObject.transform.position = goToLoc.position;
         Debug.Log("Interacted Door4");
-        isInteract = false;
-        //gameManager.FadeIn();
+        isInteract = false;        
     }
 
     void OnInteractBed()
