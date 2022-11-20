@@ -15,8 +15,6 @@ public class Game_Manager : MonoBehaviour
     
     public Rigidbody2D playerRb;
     private bool isGameStart;
-   
-
 
     public void SwitchDoor()
     {        
@@ -45,9 +43,7 @@ public class Game_Manager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && !isGameStart)
         {    
-            Debug.Log(isGameStart);
             isGameStart = true;
-            Debug.Log(isGameStart);
             startSequence.enabled = true;
             startMovement.enabled = true;
             startInteract.enabled = true;

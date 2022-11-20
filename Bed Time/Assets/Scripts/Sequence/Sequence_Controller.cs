@@ -32,23 +32,24 @@ public class Sequence_Controller : MonoBehaviour
     {
         if (timeRemain > 0)
         {
+            randSequence = sequenceType[Random.Range(0, sequenceType.Length)];
             timeRemain -= Time.deltaTime;
             if (!isSequenceStart)
             {
-                SequenceStart();
+                SequenceStart(randSequence);
             }
             else if (isSequenceStart)
             {
                 timeSequence += Time.deltaTime;
-                if (timeSequence >= 70)
+                if (timeSequence >= 40)
                 {
                     soundFX[0].Play();
                 }
-                else if (timeSequence >= 90)
+                else if (timeSequence >= 60)
                 {
                     player.GetComponent<Player_Life>().Die();
                 }
-                if (timeSequence < 90)
+                if (timeSequence < 60)
                 {
                     switch (randSequence)
                     {
@@ -64,9 +65,9 @@ public class Sequence_Controller : MonoBehaviour
                         case ("Scratches"):
                             ScratchesSequence();
                             break;
-                        case ("Radio"):
+                        /*case ("Radio"):
                             RadioSequence();
-                            break;
+                            break;*/
                     }
                 }
             }
@@ -77,11 +78,9 @@ public class Sequence_Controller : MonoBehaviour
         }
     }
 
-    void SequenceStart()
+    void SequenceStart(string random)
     {
-        isSequenceStart = true;
-        randSequence = sequenceType[Random.Range(0, sequenceType.Length)];
-        switch (randSequence)
+        switch (random)
         {
             case ("Blackout"):
                 BlackoutSequence();
@@ -95,24 +94,17 @@ public class Sequence_Controller : MonoBehaviour
             case ("Scratches"):
                 ScratchesSequence();
                 break;
-            case ("Radio"):
+            /*case ("Radio"):
                 RadioSequence();
-                break;
+                break;*/
         }
     }
 
     void StopSequence()
     {
         isSequenceStart = false;
-        interact.isSwitchOn = false;
-        interact.isBlackout = false;
-        interact.isRadioOn = false;
-        interact.isScratchesOn = false;
-        interact.isFootstepsOn = false;
-        interact.isShadowOn = false;
         timeSequence = 0;
         soundFX[0].Stop();
-        imageBlackout.SetActive(false);
     }
 
     void NewSequence()
@@ -128,8 +120,11 @@ public class Sequence_Controller : MonoBehaviour
             interact.isBlackout = true;
             //play sfx
         }
-        else if (timeSequence < 90 && interact.isSwitchOn == true)
+        else if (timeSequence < 60 && interact.isSwitchOn == true)
         {
+            interact.isBlackout = false;
+            interact.isSwitchOn = false;
+            imageBlackout.SetActive(false);
             StopSequence();
         }
     }
@@ -141,8 +136,9 @@ public class Sequence_Controller : MonoBehaviour
             interact.isRadioOn = true;
             //play sfx
         }
-        else if (timeSequence < 90 && interact.isHiding == true)
+        else if (timeSequence < 60 && interact.isHiding == true)
         {
+            interact.isFootstepsOn = false;
             StopSequence();
         }
     }
@@ -154,8 +150,9 @@ public class Sequence_Controller : MonoBehaviour
             interact.isRadioOn = true;
             //play sfx
         }
-        else if (timeSequence < 90 && interact.isHiding == true)
+        else if (timeSequence < 60 && interact.isHiding == true)
         {
+            interact.isShadowOn = false;
             StopSequence();
         }
     }
@@ -167,8 +164,9 @@ public class Sequence_Controller : MonoBehaviour
             interact.isRadioOn = true;
             //play sfx
         }
-        else if (timeSequence < 90 && interact.isHiding == true)
+        else if (timeSequence < 60 && interact.isHiding == true)
         {
+            interact.isScratchesOn = false;
             StopSequence();
         }
     }
@@ -180,8 +178,9 @@ public class Sequence_Controller : MonoBehaviour
             interact.isRadioOn = true;
             //play sfx
         }
-        else if (timeSequence < 90 && interact.isRadioOn == false)
+        else if (timeSequence < 60 && interact.isRadioSwitch == true)
         {
+            interact.isRadioOn = false;
             StopSequence();
         }
     }
