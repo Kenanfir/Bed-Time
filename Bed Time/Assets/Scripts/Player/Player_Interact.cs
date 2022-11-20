@@ -11,8 +11,8 @@ public class Player_Interact : MonoBehaviour
     private Collider2D playerColl;
     [SerializeField] private ContactFilter2D intractableFil;
     [SerializeField] private List<Collider2D> interactableObj;
-    private bool isInteract = false;
-    private bool isHiding = false;
+    public bool isInteract = false;
+    public bool isHiding = false;
 
     void Start()
     {
@@ -74,46 +74,46 @@ public class Player_Interact : MonoBehaviour
 
     void OnInteractDoor1()
     {
-        gameManager.FadeIn();
+        //gameManager.FadeOut();
         Door = GameObject.Find("Door2");
         goToLoc = Door.GetComponent<Transform>();
         gameObject.transform.position = goToLoc.position;
         Debug.Log("Interacted Door1");
         isInteract = false;
-        gameManager.FadeOut();
+        //gameManager.FadeIn();
     }
 
     void OnInteractDoor2()
     {
-        gameManager.FadeIn();
-        Door = GameObject.Find("Door3");
+        //gameManager.FadeOut();
+        Door = GameObject.Find("Door1");
         goToLoc = Door.GetComponent<Transform>();
         gameObject.transform.position = goToLoc.position;
         Debug.Log("Interacted Door2");
         isInteract = false;
-        gameManager.FadeOut();
+        //gameManager.FadeIn();
     }
 
     void OnInteractDoor3()
     {
-        gameManager.FadeIn();
+        //gameManager.FadeOut();
         Door = GameObject.Find("Door4");
         goToLoc = Door.GetComponent<Transform>();
         gameObject.transform.position = goToLoc.position;
         Debug.Log("Interacted Door3");
         isInteract = false;
-        gameManager.FadeOut();
+        //gameManager.FadeIn();
     }
 
     void OnInteractDoor4()
     {
-        gameManager.FadeIn();
-        Door = GameObject.Find("Door1");
+        //gameManager.FadeOut();
+        Door = GameObject.Find("Door3");
         goToLoc = Door.GetComponent<Transform>();
         gameObject.transform.position = goToLoc.position;
         Debug.Log("Interacted Door4");
         isInteract = false;
-        gameManager.FadeOut();
+        //gameManager.FadeIn();
     }
 
     void OnInteractBed()

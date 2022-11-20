@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Game_Manager : MonoBehaviour
 {
     public Sequence_Controller startSequence;
-    private CanvasGroup imageFade;
+    public CanvasGroup imageFade;
     private bool isGameStart;
 
     // Start is called before the first frame update
@@ -31,7 +31,7 @@ public class Game_Manager : MonoBehaviour
     {
         while (imageFade.alpha >= 1)
         {
-            imageFade.alpha += Time.deltaTime;
+            imageFade.alpha -= Time.deltaTime;
         }
     }
 
@@ -39,7 +39,7 @@ public class Game_Manager : MonoBehaviour
     {
         while (imageFade.alpha == 0)
         {
-            imageFade.alpha -= Time.deltaTime;
+            imageFade.alpha += Time.deltaTime;
         }
     }
 }

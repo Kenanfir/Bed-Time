@@ -6,14 +6,18 @@ public class Sequence_Controller : MonoBehaviour
 {
     [SerializeField] private string[] sequenceType = new string[] { "Blackout", "Footsteps", "Shadow", "Scratches", "Radio" };
     [SerializeField] private AudioSource heartBeat;
+    [SerializeField] private GameObject image;
     private string randSequence;
     private float timeRemain, timeSequence;
     private bool isSequenceStart;
+    private Player_Interact interact;
+    public GameObject player;
 
     // Start is called before the first frame update
     void Start()
     {
         timeRemain = 300;
+        interact = player.GetComponent<Player_Interact>();
     }
 
     // Update is called once per frame
@@ -36,6 +40,10 @@ public class Sequence_Controller : MonoBehaviour
                 else if (timeSequence >= 90)
                 {
                     //mati
+                }
+                if (timeSequence < 90 && interact.isHiding == true)
+                {
+                    StopSequence();
                 }
             }
         }
@@ -79,7 +87,11 @@ public class Sequence_Controller : MonoBehaviour
 
     void BlackoutSequence()
     {
-
+        image.SetActive(true);
+        if (timeSequence < 90 && interact.isHiding == true)
+        {
+            StopSequence();
+        }
     }
 
     void FootstepsSequence()
