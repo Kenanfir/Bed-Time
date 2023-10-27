@@ -32,6 +32,7 @@ For now, a playable build is available only for the prototype, which can be foun
   - **Blackout:** Restore light by using the light switch.
   - **Ghost Creep:** Hide in a cupboard or bed to escape the ghost.
   - **Phone Rings:** Turn off the phone by interacting with it.
+  - **Door Open:** Close the door by interacting with it.
 - The intensity and frequency of demon attacks will increase as time progresses.
 
 ## Technologies Used
